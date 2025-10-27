@@ -393,7 +393,7 @@
             const year = today.getFullYear();
             const month = String(today.getMonth() + 1).padStart(2, '0');
             const day = String(today.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
+            return ${year}-${month}-${day};
         }
         
         /**
@@ -665,7 +665,7 @@
                 await updateDoc(docRef, {
                     [fieldName]: arrayRemove(value)
                 });
-                console.log(`Berhasil menghapus ${value} dari ${fieldName}`);
+                console.log(Berhasil menghapus ${value} dari ${fieldName});
             } catch (error) {
                 console.error("Error menghapus data:", error);
                 // Kita tidak menggunakan alert, cukup log di konsol
@@ -783,7 +783,7 @@
             const studentNames = studentSnap.data().names.sort();
 
             // 2. Dapatkan data absensi untuk tanggal ini (realtime)
-            const attendanceRef = doc(db, 'artifacts', appId, 'public/data/attendance', `${CLASS_NAME}_${dateString}`);
+            const attendanceRef = doc(db, 'artifacts', appId, 'public/data/attendance', ${CLASS_NAME}_${dateString});
             
             attendanceUnsubscribe = onSnapshot(attendanceRef, (docSnap) => {
                 const records = docSnap.exists() ? docSnap.data().records : {};
@@ -833,7 +833,7 @@
             const dateString = attendanceDate.value;
             if (!dateString) return;
 
-            const attendanceRef = doc(db, 'artifacts', appId, 'public/data/attendance', `${CLASS_NAME}_${dateString}`);
+            const attendanceRef = doc(db, 'artifacts', appId, 'public/data/attendance', ${CLASS_NAME}_${dateString});
             
             // Dapatkan data lama untuk merge
             const currentSnap = await getDoc(attendanceRef);
@@ -845,7 +845,7 @@
             const rows = attendanceTableBody.querySelectorAll('tr');
             rows.forEach(row => {
                 const studentName = row.getAttribute('data-student-name');
-                const selectedStatus = row.querySelector(`input[name="status-${studentName}"]:checked`).value;
+                const selectedStatus = row.querySelector(input[name="status-${studentName}"]:checked).value;
                 
                 const oldRecord = currentRecords[studentName] || {};
                 
@@ -854,7 +854,7 @@
                     newRecords[studentName] = {
                         status: selectedStatus,
                         // Hanya update timestamp jika status baru adalah Hadir dan belum ada timestamp,
-                        // atau jika status diubah *menjadi* Hadir.
+                        // atau jika status diubah menjadi Hadir.
                         // Jika diubah oleh guru/sekre, jangan ubah timestamp siswa.
                         // Aturan baru: Jika diubah oleh Guru/Sek, timestamp-nya adalah 'Diubah Manual'
                         timestamp: oldRecord.status === 'H' ? oldRecord.timestamp : (selectedStatus === 'H' ? 'Manual: ' + getLocalTimestamp() : 'N/A')
@@ -943,7 +943,7 @@
             siswaAttendedContainer.classList.add('hidden');
             
             const dateString = getTodayDateString();
-            const attendanceRef = doc(db, 'artifacts', appId, 'public/data/attendance', `${CLASS_NAME}_${dateString}`);
+            const attendanceRef = doc(db, 'artifacts', appId, 'public/data/attendance', ${CLASS_NAME}_${dateString});
             
             try {
                 const docSnap = await getDoc(attendanceRef);
@@ -960,7 +960,7 @@
                 } else if (myRecord && (myRecord.status === 'S' || myRecord.status === 'I' || myRecord.status === 'A')) {
                     // Sudah ditandai S/I/A oleh guru
                     siswaAttendedContainer.classList.remove('hidden');
-                    siswaTimestampDisplay.innerHTML = `Anda tercatat <span class="font-bold text-red-600">${myRecord.status}</span>. Hubungi Wali Kelas jika ada kesalahan.`;
+                    siswaTimestampDisplay.innerHTML = Anda tercatat <span class="font-bold text-red-600">${myRecord.status}</span>. Hubungi Wali Kelas jika ada kesalahan.;
                 } else {
                     // Belum absen
                     siswaAttendButtonContainer.classList.remove('hidden');
@@ -980,7 +980,7 @@
             const dateString = getTodayDateString();
             const timestamp = getLocalTimestamp().split(',')[1].trim(); // Ambil waktunya saja
             
-            const attendanceRef = doc(db, 'artifacts', appId, 'public/data/attendance', `${CLASS_NAME}_${dateString}`);
+            const attendanceRef = doc(db, 'artifacts', appId, 'public/data/attendance', ${CLASS_NAME}_${dateString});
 
             const newRecord = {
                 status: 'H',
@@ -1041,20 +1041,6 @@
                         } else {
                             await signInAnonymously(auth);
                             console.log("Berhasil login secara anonim.");
-                        }
-                    } catch (authError) {
-                        console.error("Gagal melakukan autentikasi:", authError);
-                        document.body.innerHTML = "<p>Gagal terhubung ke layanan. Coba muat ulang.</p>";
-                    }
-                }
-            });
-
-        } catch (e) {
-            console.error("Gagal menginisialisasi Firebase:", e);
-            document.body.innerHTML = "<p>Error konfigurasi. Aplikasi tidak dapat dimuat.</p>";
-        }
-
     </script>
 </body>
 </html>
-
