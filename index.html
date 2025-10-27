@@ -306,7 +306,7 @@
         let adminListsUnsubscribe = {}; // Untuk listener admin
 
         // --- Data Awal (Hardcoded) ---
-        const INITIAL_STUDENT_LIST_XC = [
+        const X_C = [
             "Abi Toriq Makatita", "Addini Urwah Hanifah", "Ahmad Zaky", "Aira Dwi Cahyani", 
             "Allysa Putri Abimanyu", "Anela Agustin", "Arya Galih", "Asyila Nayla Nazwa",
             "Bintang Fidelya Rafa Azzahra", "Cleotasya Aurora Kristianto Putri", "Daffa Almer Yofa",
@@ -434,8 +434,7 @@
                 const studentRef = doc(db, 'artifacts', appId, 'public/data/rosters', CLASS_NAME);
                 const studentSnap = await getDoc(studentRef);
                 if (!studentSnap.exists()) {
-                    await setDoc(studentRef, { names: INITIAL_STUDENT_LIST_XC });
-                    console.log('Seed: Data siswa X-C berhasil dibuat.');
+                   await setDoc(studentRef, { names: X_C }, { merge: true });
                 } else {
                     // Update daftar siswa di login select dari data Firestore
                     populateStudentLoginSelect(studentSnap.data().names);
